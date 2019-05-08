@@ -1,3 +1,10 @@
+# Customized Ubuntu 18 and Ubuntu 16 containers with "headless" VNC session, Xfce4 desktop, Chinese locale and C++ toolchain
+
+This work is a customized version of https://github.com/ConSol/docker-headless-vnc-container
+
+Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ toolchain.
+
+
 # Docker container images with "headless" VNC session
 
 This repository contains a collection of Docker images with headless VNC environments.
