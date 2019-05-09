@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 
 MAINTAINER Albert Zheng "lisong.zheng@gmail.com"
 
-LABEL io.k8s.description="Headless VNC Container with Xfce window manager, chromium" \
+LABEL io.k8s.description="Headless VNC Container with Xfce window manager, chromium, C++ dvelopment toolchain" \
       io.k8s.display-name="Headless VNC Container based on Ubuntu"
       
 ## Connection ports for controlling the UI:
@@ -32,17 +32,23 @@ ADD ./src/common/install/ $INST_SCRIPTS/
 ADD ./src/ubuntu/install/ $INST_SCRIPTS/
 RUN find $INST_SCRIPTS -name '*.sh' -exec chmod a+x {} +
 
-### Install all locales and set Chinese locale as default
+### Install all locales, C++ development toolchain and set Chinese locale and timezone.
+#### Tip: ``-o Acquire::CompressionTypes::Order::=gz`` for resolving the error "Hash Sum mismatch" reported by apt-get
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/mirrors\.aliyun\.com/g' /etc/apt/sources.list \
-    && sed -i 's/http:\/\/security\.ubuntu\.com/http:\/\/mirrors\.aliyun\.com/g' /etc/apt/sources.list \
-    && apt-get update && apt upgrade \
-    && apt-get install -y locales \
-    && apt-get install -y build-essential && apt-get install -y cmake \
-    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    && cp /etc/apt/sources.list /etc/apt/sources.list.bak \
+    && sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/mirrors\.ustc\.edu\.cn/g' /etc/apt/sources.list \
+    && sed -i 's/http:\/\/security\.ubuntu\.com/http:\/\/mirrors\.ustc\.edu\.cn/g' /etc/apt/sources.list \
+    && apt-get update -o Acquire::CompressionTypes::Order::=gz && apt-get install -y apt-utils \
+    && apt-get install -y locales && apt-get install -y build-essential && apt-get install -y cmake && apt-get install -y git \
+    && apt-get install -y sox && apt-get install -y ffmpeg \
     && localedef -i zh_CN -c -f UTF-8 -A /usr/share/locale/locale.alias zh_CN.UTF-8 \
-    && locale-gen zh_CN.UTF-8 && update-locale LANG=zh_CN.UTF-8
+    && locale-gen zh_CN.UTF-8 && update-locale LANG=zh_CN.UTF-8 \
+    && git config --global user.name "Albert Zheng" && git config --global user.email "lisong.zheng@gmail.com"
+#### If you prefer to use zh_CN.UTF-8 locale
 ENV LANG='zh_CN.UTF-8' LANGUAGE='zh_CN:zh' LC_ALL='zh_CN.UTF-8'
+#### If you prefer to use en_US.UTF-8 locale
+#ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 ### Install some common tools
 RUN $INST_SCRIPTS/tools.sh

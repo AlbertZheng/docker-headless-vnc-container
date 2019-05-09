@@ -1,9 +1,21 @@
-# Customized Ubuntu 18 and Ubuntu 16 containers with "headless" VNC session, Xfce4 desktop, Chinese locale and C++ toolchain
+# Customized Ubuntu containers with "headless" VNC session, Xfce4 desktop, Chinese locale and C++ development toolchain
 
 This work is a customized version of https://github.com/ConSol/docker-headless-vnc-container
 
-Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ toolchain.
+Two customized Dockerfiles:
+1. ``Dockerfile.ubuntu18.xfce.vnc``: Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ development toolchain.
+2. ``Dockerfile.ubuntu16.xfce.vnc``: Updated installers, removed Firefox, added Chinese locale, C++ development toolchain.
 
+Usage example:
+- Build:
+```bash
+docker build -t albertzheng/docker-headless-ubuntu16-xfce-vnc -f Dockerfile.ubuntu16.xfce.vnc .
+```
+
+- Run:
+```bash
+docker run --hostname ubuntu16-container --user 0 -d -p 6901:6901 -p 5901:5901 -v /dev/shm:/dev/shm -v /docker/host/dir:/data --name ubuntu16 albertzheng/docker-headless-ubuntu16-xfce-vnc:latest
+```
 
 # Docker container images with "headless" VNC session
 
