@@ -85,5 +85,9 @@ RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME \
 
 USER 1000
 
+### Switch to ~ubuntu
+ENV HOME=/home/ubuntu
+WORKDIR $HOME
+
 ENTRYPOINT ["/dockerstartup/vnc_startup.sh"]
 CMD ["--wait"]
