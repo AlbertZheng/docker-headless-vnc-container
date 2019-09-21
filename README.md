@@ -3,8 +3,8 @@
 This work is a customized version of https://github.com/ConSol/docker-headless-vnc-container
 
 Two customized Dockerfiles:
-1. ``Dockerfile.ubuntu18.xfce.vnc``: Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ development toolchain, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
-2. ``Dockerfile.ubuntu16.xfce.vnc``: Updated installers, removed Firefox, added Chinese locale, C++ development toolchain, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
+1. ``Dockerfile.ubuntu18.xfce.vnc``: Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Python 3.7, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
+2. ``Dockerfile.ubuntu16.xfce.vnc``: Updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Python 3.7, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
 
 Usage example:
 - Build:
