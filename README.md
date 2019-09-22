@@ -1,4 +1,4 @@
-# Ubuntu containers with "headless" VNC session, Xfce4 desktop, Chinese locale and C++ development toolchain
+# Ubuntu containers with headless VNC session, Xfce4 desktop, Chinese locale and C++ development toolchain
 
 This is a customized fork of https://github.com/ConSol/docker-headless-vnc-container specially for my C++ & Golang remote development environment.
 
@@ -15,12 +15,12 @@ $ docker build -t albertzheng/docker-headless-ubuntu18-xfce-vnc -f Dockerfile.ub
 
 - Run, for example Ubuntu16:
 ```bash
-docker run --hostname ubuntu16-container -d -p 6901:6901 -p 5901:5901 -v /dev/shm:/dev/shm -v /docker/host/yourDir:/data --name ubuntu16 albertzheng/docker-headless-ubuntu16-xfce-vnc:latest
+docker run --hostname ubuntu16 -d -p 6901:6901 -p 5901:5901 -v /dev/shm:/dev/shm -v /docker/host/yourDir:/data --name ubuntu16 albertzheng/docker-headless-ubuntu16-xfce-vnc:latest
 ```
 
 ## Connect & Control
 If the container is started like mentioned above, connect via one of these options:
-* C++ & Golang remote development: attach Visual Studio Code to the container, then you will be able to start remote development via ``Remote - Containers extension``
+* C++ & Golang remote development: attach ``Visual Studio Code`` to the container, then you will be able to start remote development via ``Remote - Containers extension``
 * enter ``bash`` in the container via ``docker exec -it ubuntu16 /bin/bash``
 * connect via ``VNC viewer`` localhost:5901, default password: ``vncpassword``
 * connect via noVNC HTML5 full client: http://localhost:6901/vnc.html, default password: ``vncpassword``

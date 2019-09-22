@@ -43,17 +43,19 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apt-get install -y locales && apt-get install -y build-essential \
     && apt-get install -y autoconf automake libtool pkg-config && apt-get install -y git \
     && apt-get install -y libgflags-dev libgtest-dev \
-    && apt-get install -y clang clang-format libc++-dev \
+    && apt-get install -y clang clang-format libc++-dev libssl-dev \
     && apt-get install -y sox && apt-get install -y ffmpeg \
     && apt-get install -y net-tools dnsutils iputils-ping lsof curl wget htop \
     && apt-get install -y software-properties-common && apt-get update \
     && add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go
 
+### Install cmake newest version, pip, and conan
 RUN wget -O /tmp/cmake-3.15.2-Linux-x86_64.sh https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2-Linux-x86_64.sh \
     && chmod a+x /tmp/cmake-3.15.2-Linux-x86_64.sh \
     && /tmp/cmake-3.15.2-Linux-x86_64.sh --prefix=/usr/local --skip-license \
     && rm /tmp/cmake-3.15.2-Linux-x86_64.sh \
     && chown -R root:root /usr/local/bin && chown -R root:root /usr/local/doc && chown -R root:root /usr/local/man && chown -R root:root /usr/local/share \
+    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py && pip install conan \
     && git config --global user.name "Albert Zheng" && git config --global user.email "lisong.zheng@gmail.com" \
     && localedef -i zh_CN -c -f UTF-8 -A /usr/share/locale/locale.alias zh_CN.UTF-8 \
     && locale-gen zh_CN.UTF-8 && update-locale LANG=zh_CN.UTF-8
