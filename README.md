@@ -31,7 +31,9 @@ If the container is started like mentioned above, connect via one of these optio
 $ sudo su -
 ```
 
+<br>
 
+---
 # Docker container images with "headless" VNC session
 
 This repository contains a collection of Docker images with headless VNC environments.
