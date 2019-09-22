@@ -6,7 +6,7 @@ Two customized Dockerfiles:
 1. ``Dockerfile.ubuntu18.xfce.vnc``: Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Golang, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
 2. ``Dockerfile.ubuntu16.xfce.vnc``: Updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Golang, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
 
-Usage example:
+## Usage example
 - Build:
 ```bash
 $ docker build -t albertzheng/docker-headless-ubuntu16-xfce-vnc -f Dockerfile.ubuntu16.xfce.vnc .
@@ -18,7 +18,15 @@ $ docker build -t albertzheng/docker-headless-ubuntu18-xfce-vnc -f Dockerfile.ub
 docker run --hostname ubuntu16-container -d -p 6901:6901 -p 5901:5901 -v /dev/shm:/dev/shm -v /docker/host/yourDir:/data --name ubuntu16 albertzheng/docker-headless-ubuntu16-xfce-vnc:latest
 ```
 
-- How to switch to the ``root`` user in container?
+## Connect & Control
+If the container is started like mentioned above, connect via one of these options:
+* C++ & Go remote development: attach Visual Studio Code to the container, then you will be able to start remote development via ``Remote - Containers extension``
+* enter ``bash`` in the container via ``docker exec -it ubuntu16 /bin/bash``
+* connect via ``VNC viewer`` localhost:5901, default password: ``vncpassword``
+* connect via noVNC HTML5 full client: http://localhost:6901/vnc.html, default password: ``vncpassword``
+* connect via noVNC HTML5 lite client: http://localhost:6901/?password=vncpassword
+
+## How to switch to the ``root`` user in container?
 ```bash
 $ sudo su -
 ```
