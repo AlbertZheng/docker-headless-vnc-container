@@ -1,6 +1,6 @@
-# Customized Ubuntu containers with "headless" VNC session, Xfce4 desktop, Chinese locale and C++ development toolchain
+# Ubuntu containers with "headless" VNC session, Xfce4 desktop, Chinese locale and C++ development toolchain
 
-This work is a customized version of https://github.com/ConSol/docker-headless-vnc-container
+This is a customized fork of https://github.com/ConSol/docker-headless-vnc-container specially for my C++ & Golang remote development environment.
 
 Two customized Dockerfiles:
 1. ``Dockerfile.ubuntu18.xfce.vnc``: Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Golang, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
