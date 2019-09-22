@@ -20,7 +20,7 @@ docker run --hostname ubuntu16-container -d -p 6901:6901 -p 5901:5901 -v /dev/sh
 
 ## Connect & Control
 If the container is started like mentioned above, connect via one of these options:
-* C++ & Go remote development: attach Visual Studio Code to the container, then you will be able to start remote development via ``Remote - Containers extension``
+* C++ & Golang remote development: attach Visual Studio Code to the container, then you will be able to start remote development via ``Remote - Containers extension``
 * enter ``bash`` in the container via ``docker exec -it ubuntu16 /bin/bash``
 * connect via ``VNC viewer`` localhost:5901, default password: ``vncpassword``
 * connect via noVNC HTML5 full client: http://localhost:6901/vnc.html, default password: ``vncpassword``
