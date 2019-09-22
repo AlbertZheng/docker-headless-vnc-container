@@ -40,12 +40,23 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/mirrors\.ustc\.edu\.cn/g' /etc/apt/sources.list \
     && sed -i 's/http:\/\/security\.ubuntu\.com/http:\/\/mirrors\.ustc\.edu\.cn/g' /etc/apt/sources.list \
     && apt-get update -o Acquire::CompressionTypes::Order::=gz && apt-get install -y apt-utils \
-    && apt-get install -y locales && apt-get install -y build-essential && apt-get install -y cmake && apt-get install -y git \
+    && apt-get install -y locales && apt-get install -y build-essential \
+    && apt-get install -y autoconf automake libtool pkg-config && apt-get install -y git \
+    && apt-get install -y libgflags-dev libgtest-dev \
+    && apt-get install -y clang clang-format libc++-dev \
     && apt-get install -y sox && apt-get install -y ffmpeg \
-    && apt-get install -y net-tools dnsutils iputils-ping lsof \
+    && apt-get install -y net-tools dnsutils iputils-ping lsof curl wget htop \
+    && apt-get install -y software-properties-common && apt-get update \
+    && add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go \
+    && wget -O /tmp/cmake-3.15.2-Linux-x86_64.sh https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2-Linux-x86_64.sh \
+    && chmod a+x /tmp/cmake-3.15.2-Linux-x86_64.sh \
+    && /tmp/cmake-3.15.2-Linux-x86_64.sh --prefix=/usr/local --skip-license \
+    && rm /tmp/cmake-3.15.2-Linux-x86_64.sh \
+    && chown -R root:root /usr/local/bin && chown -R root:root /usr/local/doc && chown -R root:root /usr/local/man && chown -R root:root /usr/local/share \
+    && git config --global user.name "Albert Zheng" && git config --global user.email "lisong.zheng@gmail.com" \
     && localedef -i zh_CN -c -f UTF-8 -A /usr/share/locale/locale.alias zh_CN.UTF-8 \
-    && locale-gen zh_CN.UTF-8 && update-locale LANG=zh_CN.UTF-8 \
-    && git config --global user.name "Albert Zheng" && git config --global user.email "lisong.zheng@gmail.com"
+    && locale-gen zh_CN.UTF-8 && update-locale LANG=zh_CN.UTF-8
+
 #### If you prefer to use zh_CN.UTF-8 locale
 ENV LANG='zh_CN.UTF-8' LANGUAGE='zh_CN:zh' LC_ALL='zh_CN.UTF-8'
 #### If you prefer to use en_US.UTF-8 locale
@@ -70,7 +81,7 @@ ADD ./src/common/xfce/ $HOME/
 
 ### Add the ``ubuntu`` user without password as uid 1000, and assign sudo privilege for it.
 RUN apt-get install -y sudo \
-    && adduser --disabled-password --gecos '' --uid 1000 ubuntu \
+    && adduser --disabled-password --gecos '' --uid 1000  --home $HOME ubuntu \
     && adduser ubuntu sudo \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
@@ -78,9 +89,9 @@ RUN apt-get install -y sudo \
 RUN $INST_SCRIPTS/libnss_wrapper.sh
 ADD ./src/common/scripts $STARTUPDIR
 RUN $INST_SCRIPTS/set_user_permission.sh $STARTUPDIR $HOME \
-  && apt-get autoremove -y \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 USER 1000
 

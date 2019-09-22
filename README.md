@@ -3,18 +3,19 @@
 This work is a customized version of https://github.com/ConSol/docker-headless-vnc-container
 
 Two customized Dockerfiles:
-1. ``Dockerfile.ubuntu18.xfce.vnc``: Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Python 3.7, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
-2. ``Dockerfile.ubuntu16.xfce.vnc``: Updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Python 3.7, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
+1. ``Dockerfile.ubuntu18.xfce.vnc``: Porting to latest Ubuntu 18.04, updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Golang, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
+2. ``Dockerfile.ubuntu16.xfce.vnc``: Updated installers, removed Firefox, added Chinese locale, C++ development toolchain, Golang, network tools, the ``ubuntu`` user as uid 1000 with sudo privilege.
 
 Usage example:
 - Build:
 ```bash
-docker build -t albertzheng/docker-headless-ubuntu16-xfce-vnc -f Dockerfile.ubuntu16.xfce.vnc .
+$ docker build -t albertzheng/docker-headless-ubuntu16-xfce-vnc -f Dockerfile.ubuntu16.xfce.vnc .
+$ docker build -t albertzheng/docker-headless-ubuntu18-xfce-vnc -f Dockerfile.ubuntu18.xfce.vnc .
 ```
 
-- Run:
+- Run, for example Ubuntu16:
 ```bash
-docker run --hostname ubuntu16-container -d -p 6901:6901 -p 5901:5901 -v /dev/shm:/dev/shm -v /docker/host/dir:/data --name ubuntu16 albertzheng/docker-headless-ubuntu16-xfce-vnc:latest
+docker run --hostname ubuntu16-container -d -p 6901:6901 -p 5901:5901 -v /dev/shm:/dev/shm -v /docker/host/yourDir:/data --name ubuntu16 albertzheng/docker-headless-ubuntu16-xfce-vnc:latest
 ```
 
 - How to switch to the ``root`` user in container?
