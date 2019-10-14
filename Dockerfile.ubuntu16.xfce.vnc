@@ -85,11 +85,15 @@ RUN $INST_SCRIPTS/chrome.sh
 RUN $INST_SCRIPTS/xfce_ui.sh
 ADD ./src/common/xfce/ $HOME/
 
-### Add the ``ubuntu`` user without password as uid 1000, and assign sudo privilege for it.
+### Add the ``ubuntu`` user without password as uid 1000, and assign sudo privilege to it.
 RUN apt-get install -y sudo \
     && adduser --disabled-password --gecos '' --uid 1000 --home $HOME ubuntu \
     && adduser ubuntu sudo \
-    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+    && echo 'ulimit -c unlimited' >> ~ubuntu/.bashrc \
+    && echo 'unset LANGUAGE' >> ~ubuntu/.bashrc \
+    && echo 'export GO111MODULE=on' >> ~ubuntu/.bashrc \
+    && echo 'export GOPROXY=https://goproxy.io' >> ~ubuntu/.bashrc
 
 ### configure startup
 RUN $INST_SCRIPTS/libnss_wrapper.sh
