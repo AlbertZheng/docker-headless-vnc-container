@@ -40,6 +40,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/mirrors\.ustc\.edu\.cn/g' /etc/apt/sources.list \
     && sed -i 's/http:\/\/security\.ubuntu\.com/http:\/\/mirrors\.ustc\.edu\.cn/g' /etc/apt/sources.list \
     && echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main" >> /etc/apt/sources.list \
+    && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - \
     && apt-get update -o Acquire::CompressionTypes::Order::=gz && apt-get install -y apt-utils \
     && apt-get install -y locales \
     && apt-get install -y git && apt-get install -y build-essential \
