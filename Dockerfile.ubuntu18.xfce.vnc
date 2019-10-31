@@ -39,19 +39,19 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && cp /etc/apt/sources.list /etc/apt/sources.list.bak \
     && sed -i 's/http:\/\/archive\.ubuntu\.com/http:\/\/mirrors\.ustc\.edu\.cn/g' /etc/apt/sources.list \
     && sed -i 's/http:\/\/security\.ubuntu\.com/http:\/\/mirrors\.ustc\.edu\.cn/g' /etc/apt/sources.list \
-    && echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main" >> /etc/apt/sources.list \
-    && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - \
     && apt-get update -o Acquire::CompressionTypes::Order::=gz && apt-get install -y apt-utils \
     && apt-get install -y locales \
     && apt-get install -y git && apt-get install -y build-essential \
     && apt-get install -y autoconf automake libtool pkg-config \
     && apt-get install -y libgflags-dev libgtest-dev libc++-dev libssl-dev \
     && apt-get install -y binutils-dev \
-    && apt-get install -y --allow-unauthenticated clang-format-10 \
-    && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-10 1 \
     && apt-get install -y net-tools dnsutils iputils-ping lsof curl wget htop \
     && apt-get install -y software-properties-common && apt-get update \
-    && add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go
+    && add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go \
+    && echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial main" >> /etc/apt/sources.list \
+    && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - \
+    && apt-get install -y --allow-unauthenticated clang-format-10 \
+    && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-10 1
 
 ### Install cmake newest version, pip, and conan
 RUN wget -O /tmp/cmake-3.15.3-Linux-x86_64.sh https://github.com/Kitware/CMake/releases/download/v3.15.3/cmake-3.15.3-Linux-x86_64.sh \
