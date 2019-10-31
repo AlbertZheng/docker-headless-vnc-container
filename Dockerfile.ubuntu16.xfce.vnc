@@ -46,9 +46,9 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apt-get install -y git && apt-get install -y build-essential \
     && apt-get install -y autoconf automake libtool pkg-config \
     && apt-get install -y libgflags-dev libgtest-dev libc++-dev libssl-dev \
+    && apt-get install -y binutils-dev \
     && apt-get install -y --allow-unauthenticated clang-format-10 \
     && update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-10 1 \
-    && apt-get install -y sox && apt-get install -y ffmpeg \
     && apt-get install -y net-tools dnsutils iputils-ping lsof curl wget htop \
     && apt-get install -y software-properties-common && apt-get update \
     && add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go
@@ -96,7 +96,7 @@ RUN apt-get install -y sudo \
     && echo 'export GO111MODULE=on' >> ~ubuntu/.bashrc \
     && echo 'export GOPROXY=https://goproxy.io' >> ~ubuntu/.bashrc \
     && echo 'export GOPATH=~ubuntu/go' >> ~ubuntu/.bashrc \
-    && echo 'export PATH=$PATH:$GOPATH/bin' >> ~ubuntu/.bashrc \
+    && echo 'export PATH=$PATH:${GOPATH//://bin:}/bin' >> ~ubuntu/.bashrc \
     && conan profile new default --detect && conan profile update settings.compiler.libcxx=libstdc++11 default
 
 ### configure startup
